@@ -1,0 +1,85 @@
+--RBAC AND RLS FOR SCHEMA
+--Ensure inserts Role is created
+DO $BODY$
+BEGIN
+   IF NOT EXISTS (SELECT 1 FROM roles WHERE role_name = 'Administrator') THEN
+      CREATE ROLE Administrator;
+   END IF;
+   IF NOT EXISTS (SELECT 1 FROM roles WHERE role_name = 'HC_Administrator') THEN
+      CREATE ROLE HC_Administrator;
+   END IF;
+   IF NOT EXISTS (SELECT 1 FROM roles WHERE role_name = 'HC_Viewer') THEN
+      CREATE ROLE HC_Viewer;
+   END IF;
+   IF NOT EXISTS (SELECT 1 FROM roles WHERE role_name = 'Site_Administrator') THEN
+      CREATE ROLE Site_Administrator;
+   END IF;
+   IF NOT EXISTS (SELECT 1 FROM roles WHERE role_name = 'Site_Data_Collectors') THEN
+      CREATE ROLE Site_Data_Collectors;
+   END IF;
+END
+$BODY$;
+--Views
+
+GRANT SELECT ON site_schema.total_sites_summary, site_schema.HC_total_sites_summary TO hc_administrator;
+GRANT SELECT ON site_schema.total_sites_summary, site_schema.HC_total_sites_summary TO hc_viewer;
+
+--Tables
+GRANT SELECT, INSERT, UPDATE, DELETE ON site_schema.staffs, site_schema.sc_sites, site_schema.questions, site_schema.forms, site_schema.question_types, site_schema.question_options TO hc_administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TO hc_administrator;
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON site_schema.submissions, site_schema.answers TO site_administrator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON site_schema.questions, site_schema.forms, site_schema.question_types, site_schema.question_options TO site_administrator;
+
+--Policies (Row-Level)
+ALTER TABLE site_schema.submissions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_schema.answers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_schema.forms ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_schema.questions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_schema.staffs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_schema.question_options ENABLE ROW LEVEL SECURITY;
+ALTER TABLE site_schema.question_types ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY admin_submission_access ON site_schema.submissions
+FOR ALL TO site_administrator
+USING (site_id = current_setting('app.current_site_id')::INT);
+
+CREATE POLICY admin_answer_access ON site_schema.answers
+FOR ALL TO site_administrator
+USING ((SELECT site_id FROM site_schema.submissions WHERE submission_id = site_schema.answers.submission_id) = current_setting('app.current_site_id')::INT);
+
+CREATE POLICY form_access_policy ON site_schema.forms
+FOR ALL TO site_administrator
+USING (site_id IS NULL OR site_id = current_setting('app.current_site_id')::INT);
+
+CREATE POLICY question_access_policy ON site_schema.questions
+FOR ALL TO site_administrator
+USING ((SELECT site_id FROM site_schema.forms WHERE form_id = site_schema.questions.form_id) IS NULL OR
+       (SELECT site_id FROM site_schema.forms WHERE form_id = site_schema.questions.form_id) = current_setting('app.current_site_id')::INT);
+
+CREATE POLICY question_option_access_policy ON site_schema.question_options
+FOR ALL TO site_administrator
+USING (
+    (SELECT site_id FROM site_schema.forms WHERE form_id = 
+        (SELECT form_id FROM site_schema.questions WHERE question_id = site_schema.question_options.question_id)
+    ) IS NULL 
+    OR
+    (SELECT site_id FROM site_schema.forms WHERE form_id = 
+        (SELECT form_id FROM site_schema.questions WHERE question_id = site_schema.question_options.question_id)
+    ) = current_setting('app.current_site_id')::INT
+);
+
+CREATE POLICY collector_submission_insert ON site_schema.submissions
+FOR INSERT TO Site_Data_Collectors
+WITH CHECK (site_id = current_setting('app.current_site_id')::INT);
+
+CREATE POLICY collector_answers_update ON site_schema.answers
+FOR UPDATE TO Site_Data_Collectors
+USING (submission_id = current_setting('app.current_submission_id')::INT);
+
+
+--test
+SET app.current_site_id TO '1';
+SELECT * FROM site_schema.submissions;
+

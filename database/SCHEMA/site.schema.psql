@@ -1,0 +1,121 @@
+
+CREATE SCHEMA site_schema;
+
+SET search_path TO site_schema;
+
+-- Sites table
+CREATE TABLE site_schema.sc_sites (
+    site_id SERIAL PRIMARY KEY,
+    site_name VARCHAR(255) NOT NULL,
+    address_line1 TEXT,
+    address_line2 TEXT,
+    postal_code VARCHAR(50),
+    city VARCHAR(50),
+    province province_type NOT NULL,
+    site_type site_type NOT NULL,
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    removed_date TIMESTAMP WITH TIME ZONE
+);
+
+-- Roles table
+CREATE TABLE site_schema.roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(255) UNIQUE NOT NULL,
+    description TEXT
+);
+
+-- Staff table with secure storage for passwords
+CREATE TABLE site_schema.staffs (
+    staff_id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER NOT NULL,
+    site_id INTEGER NULL,
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    removed_date TIMESTAMP WITH TIME ZONE,
+    FOREIGN KEY (role_id) REFERENCES site_schema.roles(role_id),
+    FOREIGN KEY (site_id) REFERENCES site_schema.sc_sites(site_id) ON DELETE SET NULL
+);
+
+-- Forms table adjusted for site-specific and global forms
+CREATE TABLE site_schema.forms (
+    form_id SERIAL PRIMARY KEY,
+    form_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    site_id INTEGER, -- Nullable indicates global forms
+    FOREIGN KEY (site_id) REFERENCES site_schema.sc_sites(site_id) ON DELETE SET NULL
+);
+
+-- Question types table
+CREATE TABLE site_schema.question_types (
+    question_type_id SERIAL PRIMARY KEY,
+    type_name VARCHAR(255) NOT NULL
+);
+
+-- Questions table
+CREATE TABLE site_schema.questions (
+    question_id SERIAL PRIMARY KEY,
+    form_id INTEGER NOT NULL,
+    question_text TEXT NOT NULL,
+    question_type_id INTEGER NOT NULL,
+    is_mandatory BOOLEAN DEFAULT FALSE,
+    is_required BOOLEAN DEFAULT FALSE,
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (form_id) REFERENCES site_schema.forms(form_id) ON DELETE CASCADE,
+    FOREIGN KEY (question_type_id) REFERENCES site_schema.question_types(question_type_id)
+);
+
+-- Question options table
+CREATE TABLE site_schema.question_options (
+    question_option_id SERIAL PRIMARY KEY,
+    question_id INTEGER NOT NULL,
+    determined_answer TEXT,
+    FOREIGN KEY (question_id) REFERENCES site_schema.questions(question_id) ON DELETE CASCADE
+);
+
+-- Submissions table to track form submissions and edits
+CREATE TABLE site_schema.submissions (
+    submission_id SERIAL PRIMARY KEY,
+    staff_id INTEGER NOT NULL,
+    form_id INTEGER NOT NULL,
+    site_id INTEGER NOT NULL,
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (staff_id) REFERENCES site_schema.staffs(staff_id),
+    FOREIGN KEY (form_id) REFERENCES site_schema.forms(form_id),
+    FOREIGN KEY (site_id) REFERENCES site_schema.sc_sites(site_id)
+);
+
+CREATE TABLE site_schema.answers (
+    answer_id SERIAL PRIMARY KEY,
+    submission_id INTEGER NOT NULL,
+    question_id INTEGER NOT NULL,
+    question_option_id INTEGER, -- This can be NULL for non-multi-select questions
+    answer_text TEXT, -- This can be used for open-ended questions
+    answer_date DATE, -- For questions requiring a date response
+    answer_boolean BOOLEAN, -- For Yes/No or True/False questions
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (submission_id) REFERENCES site_schema.submissions(submission_id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES site_schema.questions(question_id) ON DELETE CASCADE,
+    FOREIGN KEY (question_option_id) REFERENCES site_schema.question_options(question_option_id) ON DELETE CASCADE
+);
+
+-- Logs table with indexing for performance
+CREATE TABLE site_schema.logs (
+    log_id SERIAL PRIMARY KEY,
+    staff_id INTEGER,
+    site_id INTEGER NOT NULL,
+    event_type site_schema.log_type,
+    message TEXT,
+    entityaffected VARCHAR(255),
+    created_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (staff_id) REFERENCES site_schema.staffs(staff_id) ON DELETE SET NULL,
+    FOREIGN KEY (site_id) REFERENCES site_schema.sc_sites(site_id) ON DELETE SET NULL
+);

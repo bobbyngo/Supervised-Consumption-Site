@@ -21,10 +21,20 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
         },
         province: {
-            type: Sequelize.STRING,
+            type: Sequelize.ENUM('AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'),
+            allowNull: false
         },
         site_type: {
-            type: Sequelize.STRING,
+            type: Sequelize.ENUM('Fixed', 'Mobile'),
+            allowNull: false
+        },
+        created_date: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+        },
+        updated_date: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
         },
     });
     Sites.sync({ alter: true });

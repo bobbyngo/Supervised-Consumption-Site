@@ -1,0 +1,18 @@
+CREATE TYPE site_type AS ENUM (
+    'Fixed',
+    'Mobile'
+);
+
+CREATE TYPE province_type AS ENUM
+    ('AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT');
+    
+    
+CREATE TYPE log_type AS ENUM (
+    'StaffLogin',
+    'StaffLogout',
+    'DataEdit',
+    'DataDelete',
+    'SystemError',
+    'DataCreation',
+    'FormUpdate'
+);

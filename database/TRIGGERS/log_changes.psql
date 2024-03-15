@@ -1,0 +1,26 @@
+CREATE OR REPLACE FUNCTION site_schema.log_changes()
+RETURNS TRIGGER     
+	LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE NOT LEAKPROOF STRICT SECURITY DEFINER
+AS $BODY$
+    -- Determine the appropriate log type based on the operation
+    DECLARE
+        l_type site_schema.log_type;
+    BEGIN
+        IF TG_OP = 'INSERT' THEN
+            l_type := 'DataCreation'; 
+        ELSIF TG_OP = 'UPDATE' THEN
+            l_type := 'DataEdit';
+        ELSIF TG_OP = 'DELETE' THEN
+            l_type := 'DataDelete';
+        END IF;
+
+        -- Insert log with determined log type
+        INSERT INTO site_schema.logs (staff_id, site_id, event_type, message, entityaffected, created_date)
+        VALUES (COALESCE(NEW.staff_id, OLD.staff_id), COALESCE(NEW.site_id, OLD.site_id), l_type, TG_OP || ' operation performed', TG_TABLE_NAME, CURRENT_TIMESTAMP);
+
+        RETURN COALESCE(NEW, OLD);
+    END;
+$BODY$ 
+

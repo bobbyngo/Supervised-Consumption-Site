@@ -31,6 +31,7 @@ require('./routes/forms.route')(app);
 require('./routes/questions.routes')(app);
 require('./routes/answers.routes')(app);
 require('./routes/users.routes')(app);
+require('./routes/submissions.routes')(app);
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);

@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW site_schema.HC_total_sites_summary_metrics AS
+SELECT
+    *
+FROM
+    site_schema.HC_total_sites_summary_metrics_mat;
+

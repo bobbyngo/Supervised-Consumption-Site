@@ -1,0 +1,54 @@
+CREATE OR REPLACE FUNCTION site_schema.update_master_site_view()
+RETURNS TRIGGER 
+LANGUAGE 'plpgsql'
+AS $BODY$
+DECLARE
+    view_record RECORD;
+    metrics TEXT := 'CREATE OR REPLACE VIEW site_schema.master_site_view AS ';
+    analysis TEXT := 'CREATE OR REPLACE VIEW site_schema.master_site_relevant_analysis_view AS ';
+    metrics_view_count INTEGER := 0;
+    analysis_view_count INTEGER := 0;
+BEGIN
+    -- Updating the master_site_relevant_analysis_view showing all current only metric views
+    FOR view_record IN
+        SELECT table_name
+        FROM information_schema.views
+        WHERE table_schema = 'site_schema' AND table_name LIKE 'site_%_summary_metrics'
+    LOOP
+        IF metrics_view_count > 0 THEN
+            metrics := metrics || ' UNION ALL ';
+        END IF;
+        metrics := metrics || format('SELECT * FROM site_schema.%I', view_record.table_name);
+        metrics_view_count := metrics_view_count + 1;
+    END LOOP;
+
+    -- Execute for master_site_view
+    IF metrics_view_count > 0 THEN
+        EXECUTE metrics;
+    ELSE
+        RAISE NOTICE 'No site-specific summary metrics views found to include in master_site_view.';
+    END IF;
+
+    -- Updating the master_site_relevant_analysis_view showing current only analysis views
+    FOR view_record IN
+        SELECT table_name
+        FROM information_schema.views
+        WHERE table_schema = 'site_schema' AND table_name LIKE 'site_%_relevant_analysis'
+    LOOP
+        IF analysis_view_count > 0 THEN
+            analysis := analysis || ' UNION ALL ';
+        END IF;
+        analysis := analysis || format('SELECT * FROM site_schema.%I', view_record.table_name);
+        analysis_view_count := analysis_view_count + 1;
+    END LOOP;
+
+    -- Execute for master_site_relevant_analysis_view
+    IF analysis_view_count > 0 THEN
+        EXECUTE analysis;
+    ELSE
+        RAISE NOTICE 'No site-specific relevant analysis views found to include in master_site_relevant_analysis_view.';
+    END IF;
+END;
+$BODY$ 
+
+

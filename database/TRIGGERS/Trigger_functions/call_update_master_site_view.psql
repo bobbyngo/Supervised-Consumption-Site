@@ -1,0 +1,9 @@
+CREATE OR REPLACE FUNCTION site_schema.call_update_master_site_view()
+RETURNS trigger AS $$
+BEGIN
+    PERFORM site_schema.update_master_site_view();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+

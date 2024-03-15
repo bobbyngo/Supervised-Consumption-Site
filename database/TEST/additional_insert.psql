@@ -1,0 +1,171 @@
+
+
+-- Insert sites
+INSERT INTO site_schema.sc_sites (site_id, site_name, address_line1, address_line2, postal_code, city, province, site_type) VALUES
+    (7, 'Lakeview Clinic', '789 Lakeview Rd', NULL, 'L5M 8K7', 'Lakeview', 'AB', 'Mobile'),
+    (8, 'Harborfront Health Center', '321 Harbor St', NULL, 'H8E 7A4', 'Harborfront', 'NB', 'Mobile'),
+
+    (9, 'Pinecrest Healthcare Center', '555 Pine St', 'Floor 3', 'P9N 2T8', 'Pinecrest', 'ON', 'Fixed'),
+    (10, 'Mountainside Medical Facility', '987 Mountain Ave', 'Suite 100', 'M3T 6Z1', 'Mountain City', 'BC', 'Fixed'),
+    (11, 'Riverdale Community Clinic', '456 River Rd', 'Building B', 'R5R 2C3', 'Riverdale', 'NL', 'Fixed'),
+    (12, 'Highland Medical Services', '111 Highland Ave', NULL, 'H2O 4P7', 'Highland', 'PE', 'Fixed'),
+    (13, 'Maplewood Wellness Hub', '789 Maple St', NULL, 'M9M 5L2', 'Maplewood', 'YT', 'Fixed'),
+    (14, 'Brookside Clinic', '222 Brookside Dr', NULL, 'B3B 1X1', 'Brookside', 'NT', 'Fixed'),
+    (15, 'Parkview Medical Center', '123 Park Ave', 'Suite 300', 'P8N 3R6', 'Parkville', 'NU', 'Fixed'),
+    (16, 'Riverside Health Center', '456 Riverside Rd', NULL, 'R4R 7S5', 'Riverside', 'NS', 'Fixed'),
+    (17, 'Midtown Wellness Hub', '789 Midtown Blvd', NULL, 'M6M 4K9', 'Midtown', 'QC', 'Fixed'),
+    (18, 'Central Valley Community Clinic', '101 Central Ave', 'Unit 20', 'C2C 8T1', 'Central Valley', 'SK', 'Fixed'),
+    (19, 'Sunrise Medical Services', '555 Sunrise St', NULL, 'S6S 3L8', 'Sunrise City', 'NB', 'Fixed'),
+    (20, 'Seaside Health Center', '123 Seaside Rd', NULL, 'S1S 2P5', 'Seaside', 'NL', 'Fixed');
+
+
+
+/* --Makeure to adjust it with this (previous role format INSERT INTO site_schema.roles (role_id, role_name, description) VALUES
+(1, 'Site Admin', 'Responsible for managing the site and overseeing operations.'),
+(2, 'Data Collector', 'Responsible for collecting client data and managing form submissions.'),
+(3, 'Administrator', 'Responsible for managing the database'),
+(4, 'HC Admin', 'Responsible for managing forms'),
+(5, 'HC Viewer', 'Can View PowerBI Dashboards with Aggregated views ');
+)
+UPDATE site_schema.staffs
+SET role_id = <new_role_id>
+WHERE role_id = <old_role_id>; 1-100, 2-200, 3-300, 4-400,5-500 */
+
+INSERT INTO site_schema.staffs (staff_id, username, email, password_hash, role_id, site_id, created_date, updated_date, removed_date) VALUES
+(1, 'Emily_Jones_role1_f3a436a3', 'Emily_Jones_role1_f3a436a3@example.com', 'db24f2eb4bbdbdc25cba9cd8d7be7a72', 4, NULL, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(2, 'Michael_Williams_role1_29fc51c0', 'Michael_Williams_role1_29fc51c0@example.com', '32ae08219fa0e0b1d925ad137a932293', 4, NULL, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(3, 'David_Johnson_role1_cf1cb91f', 'David_Johnson_role1_cf1cb91f@example.com', 'e4227c0506efe4481283ecc8632382e5', 5, NULL, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(4, 'Michael_Johnson_role1_802ddad1', 'Michael_Johnson_role1_802ddad1@example.com', '186b881c7e38ea67d7bdcedf24e37220', 5, NULL, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(100, 'Jane_Brown_role1_9e9fa22a', 'Jane_Brown_role1_9e9fa22a@example.com', '092c8eea18542089cac61dd381d36a5d', 1, 9, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(101, 'Sarah_Brown_role1_47a9bec4', 'Sarah_Brown_role1_47a9bec4@example.com', '2f8595c72234c691689a657d187331c8', 1, 10, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(102, 'Michael_Brown_role1_740c1f31', 'Michael_Brown_role1_740c1f31@example.com', '1858bc5260bb43d596cef6612654b4d5', 1, 11, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(103, 'David_Williams_role1_554da6f9', 'David_Williams_role1_554da6f9@example.com', '28868c4f2dc48c73a85b3b2a22c93215', 1, 12, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(104, 'John_Johnson_role1_8f12cf1a', 'John_Johnson_role1_8f12cf1a@example.com', '997bf932941b57624fedb01f56d744bc', 1, 1, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(105, 'Michael_Smith_role1_3b6bce4f', 'Michael_Smith_role1_3b6bce4f@example.com', 'e6d69d73fee7fc8204483f1a60824133', 1, 2, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(106, 'David_Jones_role1_68f0bd4e', 'David_Jones_role1_68f0bd4e@example.com', 'cf03843d3fc496dc57291541dd456457', 1, 3, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(107, 'Sarah_Williams_role1_ec5fc87c', 'Sarah_Williams_role1_ec5fc87c@example.com', '508a101ef9320cd72be62a3bc1e6b86d', 1, 4, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(108, 'John_Garcia_role1_fca9c321', 'John_Garcia_role1_fca9c321@example.com', 'd1d7f9a290b0338007bd64df5d0842a5', 1, 5, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(109, 'Jane_Johnson_role1_e64653f2', 'Jane_Johnson_role1_e64653f2@example.com', 'cb1713cdd3a42d864fc718728f6ff61d', 1, 6, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(110, 'David_Smith_role1_6b16bbfc', 'David_Smith_role1_6b16bbfc@example.com', '36ee5225318fba00a1fa20bacff8a920', 1, 7, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(111, 'John_Brown_role1_98cf3069', 'John_Brown_role1_98cf3069@example.com', '5ca04e45eaabdce95cafad89439c143f', 1, 8, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(112, 'David_Williams_role1_522dcca8', 'David_Williams_role1_522dcca8@example.com', '6841bcfb78e46b5a65fc4d89f35c8105', 1, 17, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(113, 'Emily_Brown_role1_b6106d78', 'Emily_Brown_role1_b6106d78@example.com', '88a397a6a8db17ad26358b74464d4403', 1, 18, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(114, 'Jane_Brown_role1_948c8804', 'Jane_Brown_role1_948c8804@example.com', '62b1307ad27cddae8daa6f50c1427994', 1, 19, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(115, 'Jane_Brown_role1_b39617c3', 'Jane_Brown_role1_b39617c3@example.com', '310e58e25b8a8d187ac0e3676653c335', 1, 20, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(116, 'Michael_Johnson_role1_68df35f8', 'Michael_Johnson_role1_68df35f8@example.com', 'fc18737f8173687eb5915fc6ecd4f3c0', 1, 13, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(117, 'Emily_Williams_role1_f0c1992f', 'Emily_Williams_role1_f0c1992f@example.com', 'abb453369b7ee02851fa67e9852b571a', 1, 14, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(118, 'Sarah_Jones_role1_abe41343', 'Sarah_Jones_role1_abe41343@example.com', '5ec4836736a9dbd4d0cd1cdfc615cbc1', 1, 15, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(119, 'Emily_Johnson_role1_d9906b6e', 'Emily_Johnson_role1_d9906b6e@example.com', 'df55d628f62e1d2f0606e83f19d5c62f', 1, 16, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL);    
+  
+ INSERT INTO site_schema.staffs (staff_id, username, email, password_hash, role_id, site_id) VALUES   
+    (121, 'Emily_Jones_role1_b98b8126', 'Emily_Jones_role1_b98b8126@example.com', '6865ab97245dbf8d0b40d35571b2219b', 2, 1),
+    (122, 'Michael_Johnson_role1_66c7f412', 'Michael_Johnson_role1_66c7f412@example.com', '5e6ddcf029b2180a0a18027161b980a9', 2, 1),
+    (123, 'Michael_Jones_role1_c6c74a2f', 'Michael_Jones_role1_c6c74a2f@example.com', '7b7e43f4dfbe73ffd5f3961a60a47bc8', 2, 2),
+    (124, 'John_Johnson_role1_c868afc0', 'John_Johnson_role1_c868afc0@example.com', '47f4f7fa2a684cbe0765440b49b6f62b', 2, 2),
+    (125, 'Michael_Jones_role1_a2926982', 'Michael_Jones_role1_a2926982@example.com', '1847c84fc8716da6d51227f5f0626be1', 2, 3),
+    (126, 'Sarah_Smith_role1_c09f69f8', 'Sarah_Smith_role1_c09f69f8@example.com', '60440a8f3012b943a042130082ef5d0f', 2, 3),
+    (127, 'David_Brown_role1_c40fa326', 'David_Brown_role1_c40fa326@example.com', '7da6c8ede18254c8a7f11424ac11bac5', 2, 4),
+    (128, 'Sarah_Williams_role1_31c1bd60', 'Sarah_Williams_role1_31c1bd60@example.com', 'edc20a4f6fdf0db49bfd5c7f83d6dd5d', 2, 4),
+    (129, 'Jane_Garcia_role1_0b667bf5', 'Jane_Garcia_role1_0b667bf5@example.com', 'f226871d71a4df5410b55a3e82d4b2a5', 2, 5),
+    (130, 'Jane_Brown_role1_2c8549d0', 'Jane_Brown_role1_2c8549d0@example.com', '0cc8ff7e0a5f5888031fa312ab40b664', 2, 5);
+
+
+INSERT INTO site_schema.staffs (staff_id, username, email, password_hash, role_id, site_id, created_date, updated_date, removed_date) VALUES
+(131, 'Sarah_Brown_role1_f138d025', 'Sarah_Brown_role1_f138d025@example.com', '23e34bb3ff2e262a98c5bcb4c203a177', 2, 6, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(132, 'Michael_Brown_role1_f87bcbad', 'Michael_Brown_role1_f87bcbad@example.com', '7204213ce0bddb4e4f369f176020df72', 2, 6, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(133, 'Emily_Smith_role1_971c4d9f', 'Emily_Smith_role1_971c4d9f@example.com', '25ba6bc826a9425ed781c7eaf2a0bd32', 2, 7, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(134, 'Emily_Smith_role1_0f761c95', 'Emily_Smith_role1_0f761c95@example.com', '4105c6a5d32639270f1a8dcec6bc45cf', 2, 7, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(135, 'Michael_Garcia_role1_221041a0', 'Michael_Garcia_role1_221041a0@example.com', '4f63a03ec414be7deff2ba92eba76016', 2, 8, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(136, 'Michael_Garcia_role1_03d5e48d', 'Michael_Garcia_role1_03d5e48d@example.com', '24fbe06d0f7f84f25f4de8dbeb83c56f', 2, 8, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(137, 'Sarah_Williams_role1_4c3cad6c', 'Sarah_Williams_role1_4c3cad6c@example.com', 'ac206b16f865acf7c94d9b56f16161d8', 2, 9, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(138, 'Michael_Garcia_role1_2ffe4e66', 'Michael_Garcia_role1_2ffe4e66@example.com', 'e7ecf8dc4d7adee106bd5282bfdd306a', 2, 9, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(139, 'David_Brown_role1_419c7f24', 'David_Brown_role1_419c7f24@example.com', '537b6725bc9e776732ae812fd2bbc8a6', 2, 10, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(140, 'David_Smith_role1_def3aa8e', 'David_Smith_role1_def3aa8e@example.com', 'bd15ed8d9374f27cdab5310e76f80f2a', 2, 10, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(141, 'Jane_Johnson_role1_cb9521ea', 'Jane_Johnson_role1_cb9521ea@example.com', '97504a23b0b2f811be20e76037edd194', 2, 11, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(142, 'Jane_Williams_role1_9aa2deb0', 'Jane_Williams_role1_9aa2deb0@example.com', '97e855877fd7b0a7c7e1c9841de68398', 2, 11, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(143, 'David_Jones_role1_aec79158', 'David_Jones_role1_aec79158@example.com', 'db74a5b487409be5c16544ec1f666fd3', 2, 12, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(144, 'Sarah_Johnson_role1_84a8be5f', 'Sarah_Johnson_role1_84a8be5f@example.com', 'c37c3dd21dcbe7eb0d5275e57ab87e4b', 2, 12, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(145, 'Emily_Brown_role1_7ee0c108', 'Emily_Brown_role1_7ee0c108@example.com', '0ab9e0b15b59f70dd8e6921ee029f655', 2, 13, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(146, 'David_Smith_role1_9519e508', 'David_Smith_role1_9519e508@example.com', '4b1998d50d849a7e2b6e71db0b493c79', 2, 13, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(147, 'Jane_Johnson_role1_28f9341c', 'Jane_Johnson_role1_28f9341c@example.com', 'e3f4876e654d7cfca0058d8da1b7a76e', 2, 14, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(148, 'Emily_Smith_role1_f9f9f92c', 'Emily_Smith_role1_f9f9f92c@example.com', '7543c301646993d5bce03c23093a4858', 2, 14, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(149, 'Sarah_Williams_role1_d3fd0e07', 'Sarah_Williams_role1_d3fd0e07@example.com', 'e2d6b5f85d19cbcb6af05dd4f8702879', 2, 15, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(150, 'Sarah_Brown_role1_6ad35015', 'Sarah_Brown_role1_6ad35015@example.com', '22cb43ed18f8824e02cfb6b4e7ee92a6', 2, 15, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(151, 'David_Jones_role1_019d104b', 'David_Jones_role1_019d104b@example.com', '17f839aa81f3b7ad9fe85e21e6a7f1cc', 2, 16, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(152, 'Jane_Garcia_role1_4d2033f9', 'Jane_Garcia_role1_4d2033f9@example.com', 'a9de888ad19f1d4a6e1051887a4304f5', 2, 16, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(153, 'Emily_Brown_role1_19c7e31e', 'Emily_Brown_role1_19c7e31e@example.com', 'f22e5f4c6c26b3169bb011d3a13d38ff', 2, 17, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(154, 'Sarah_Brown_role1_1e76c4a1', 'Sarah_Brown_role1_1e76c4a1@example.com', '9f9d82a7c2028a9e4f7a20bfc1e8c54d', 2, 17, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(155, 'Jane_Williams_role1_30628b25', 'Jane_Williams_role1_30628b25@example.com', 'f33409d648d3f4aeeff4711587a54e11', 2, 18, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(156, 'Emily_Johnson_role1_86fb2f9e', 'Emily_Johnson_role1_86fb2f9e@example.com', 'e6c8ad70d7d02046f8e4f8d31cf2a8fd', 2, 18, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(157, 'David_Jones_role1_5fbbd693', 'David_Jones_role1_5fbbd693@example.com', 'c66d18864c139c2fbd426ea8039ac9ae', 2, 19, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(158, 'David_Williams_role1_1cda18b5', 'David_Williams_role1_1cda18b5@example.com', 'f1a615c7aae135be5d90e2f18f10f208', 2, 19, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(159, 'Jane_Jones_role1_5b2966cb', 'Jane_Jones_role1_5b2966cb@example.com', '8fb27d8bfc5a4e5df8d28f8471fbc751', 2, 20, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL),
+(160, 'Sarah_Smith_role1_ea28aa90', 'Sarah_Smith_role1_ea28aa90@example.com', '0c9c8124160f74ad6803d0e1b4a4d67c', 2, 20, '2024-03-04 23:23:33.861122-05', '2024-03-04 23:23:33.861122-05', NULL);
+
+ INSERT INTO site_schema.submissions( submission_id, staff_id, form_id, site_id, created_date)VALUES 
+(1, 1000, 1, 1, '2024-01-01'),
+(2, 1000, 2, 1, '2024-01-02'),
+(3, 1000, 3, 1, '2024-01-03'),
+(4, 1000, 1, 1, '2024-01-01'),
+(5, 1000, 1, 1, '2024-01-01'),
+(6, 1001, 1, 1, '2024-01-04');
+F
+INSERT INTO site_schema.answers( submission_id, question_id, question_option_id, answer_text, answer_date, answer_boolean)
+	VALUES 
+(1, 1, NULL, 'John Doe', NULL, NULL),
+(1, 2, NULL, NULL, '1990-01-01', NULL),
+(1, 3, 1, NULL, NULL, NULL),
+(1, 4, NULL, NULL, NULL, TRUE),
+(1, 5, NULL, '5', NULL, NULL),
+(1, 6, 4, NULL, NULL, NULL),
+(1, 7, NULL, NULL, NULL, FALSE),
+(1, 8, NULL, 'I feel very safe', NULL, NULL);
+
+
+(2, 9, NULL, NULL, '2024-01-02', NULL),
+(2, 10, 17, NULL, NULL, NULL),
+(2, 11, NULL, NULL, NULL, TRUE),
+(2, 12, NULL, NULL, NULL, TRUE),
+(2, 13, NULL, 'Yes', NULL, NULL),
+(2, 14, 8, NULL, NULL, NULL),
+(2, 15, NULL, 'Client experienced an overdose but was revived after naloxone administration.', NULL, NULL);
+
+
+(3, 16, NULL, 'Jane Doe', NULL, NULL),
+(3, 17, NULL, NULL, '2024-01-03', NULL),
+(3, 18, 36, NULL, NULL, NULL),
+(3, 19, 38, NULL, NULL, NULL),
+(3, 20, 51, NULL, NULL, NULL),
+(3, 21, NULL, 'Client needs further support with addiction recovery.', NULL, NULL);
+
+
+(4, 1, NULL, 'Elena Mendoza', NULL, NULL),  -- Full name
+(4, 2, NULL, NULL, '1988-05-20', NULL),      -- Date of birth
+(4, 3, 2, NULL, NULL, NULL),                 -- Gender (Female)
+(4, 4, NULL, NULL, NULL, FALSE),             -- First visit
+(4, 5, NULL, '12', NULL, NULL),              -- Number of past visits
+(4, 6, 5, NULL, NULL, NULL),                 -- Substance of consumption (Crack)
+(4, 7, NULL, NULL, NULL, TRUE),              -- Assistance required
+(4, 8, NULL, 'I do not feel safe', NULL, NULL);  -- Safety
+
+
+(5, 1, NULL, 'Michael Thompson', NULL, NULL),  -- Full name
+(5, 2, NULL, NULL, '1975-09-15', NULL),        -- Date of birth
+(5, 3, 1, NULL, NULL, NULL),                   -- Gender (Male)
+(5, 4, NULL, NULL, NULL, TRUE),                -- First visit
+(5, 5, NULL, '0', NULL, NULL),                 -- Number of past visits (first visit, so 0)
+(5, 6, 7, NULL, NULL, NULL),                   -- Substance of consumption (Amphetamine)
+(5, 7, NULL, NULL, NULL, FALSE),               -- No assistance required
+(5, 8, NULL, 'I feel somewhat safe', NULL, NULL);  -- Safety
+
+
+(6, 1, NULL, 'Lucas Graham', NULL, NULL),    -- Full name
+(6, 2, NULL, NULL, '1992-11-30', NULL),      -- Date of birth
+(6, 3, 1, NULL, NULL, NULL),                 -- Gender (Male)
+(6, 4, NULL, NULL, NULL, FALSE),             -- First visit
+(6, 5, NULL, '20', NULL, NULL),              -- Number of past visits
+(6, 6, 6, NULL, NULL, NULL),                 -- Substance of consumption (Methamphetamine)
+(6, 7, NULL, NULL, NULL, TRUE),              -- Assistance required
+(6, 8, NULL, 'I feel safe', NULL, NULL);     -- Safety
+
+

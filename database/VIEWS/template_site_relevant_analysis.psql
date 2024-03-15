@@ -1,0 +1,72 @@
+
+
+--Assumptive Analysis to be used for specific sites
+CREATE OR REPLACE VIEW site_schema.template_site_relevant_analysis AS
+WITH incident_drug_usage_stats AS (
+    SELECT
+        sub.site_id,
+        qo.determined_answer AS drug,
+        COUNT(DISTINCT sub.submission_id) AS incident_drug_usage
+    FROM
+        site_schema.submissions sub
+    INNER JOIN
+        site_schema.answers ans ON sub.submission_id = ans.submission_id
+    INNER JOIN
+        site_schema.question_options qo ON ans.question_option_id = qo.question_option_id
+    WHERE
+        sub.form_id = 2 AND ans.question_id = 14  -- Assumes question_id 14 relates to "What drugs were consumed?" in form 2
+    GROUP BY
+        sub.site_id, qo.determined_answer
+),
+null_responses AS (
+    SELECT
+        sub.site_id,
+        COUNT(*) FILTER (WHERE ans.question_option_id IS NULL AND ans.answer_text IS NULL AND ans.answer_date IS NULL AND ans.answer_boolean IS NULL) AS null_count
+    FROM
+        site_schema.submissions sub
+    JOIN
+        site_schema.answers ans ON sub.submission_id = ans.submission_id
+    GROUP BY
+        sub.site_id
+),
+referral_services_needed AS (
+    SELECT
+        sub.site_id,
+        qo.determined_answer AS service,
+        COUNT(DISTINCT sub.submission_id) AS referral_count
+    FROM
+        site_schema.submissions sub
+    JOIN
+        site_schema.answers ans ON sub.submission_id = ans.submission_id
+    JOIN
+        site_schema.question_options qo ON ans.question_option_id = qo.question_option_id
+    WHERE
+        sub.form_id = 3 AND ans.question_id = 19  -- Assumes question_id 19 relates to "Type of service referred to" in form 3
+    GROUP BY
+        sub.site_id, qo.determined_answer
+)
+SELECT
+    inc.site_id,
+    inc.drug,
+    inc.incident_drug_usage,
+    nr.null_count,
+    AVG(nr.null_count) OVER (PARTITION BY inc.site_id) AS avg_null_responses,
+    rs.service AS referral_service,
+	rs.referral_count,
+    CASE --Ensure no divisible zero
+        WHEN SUM(rs.referral_count) OVER (PARTITION BY inc.site_id) = 0 THEN 0
+        ELSE rs.referral_count::DECIMAL / SUM(rs.referral_count) OVER (PARTITION BY inc.site_id) * 100 
+    END AS percentage_of_total_referrals
+FROM
+    incident_drug_usage_stats inc
+LEFT JOIN
+    null_responses nr ON inc.site_id = nr.site_id
+LEFT JOIN
+    referral_services_needed rs ON inc.site_id = rs.site_id
+ORDER BY
+    inc.site_id, inc.incident_drug_usage DESC, nr.null_count DESC, rs.referral_count DESC;
+
+
+
+
+

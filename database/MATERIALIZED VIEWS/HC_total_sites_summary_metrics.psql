@@ -1,0 +1,87 @@
+
+CREATE MATERIALIZED VIEW site_schema.HC_total_sites_summary_metrics_mat AS
+SELECT
+    s.site_id,
+    s.site_name,
+    s.city,
+    s.province,
+    s.site_type,
+    DATE_TRUNC('month', sub.created_date) AS report_month, -- Aggregate by month
+    EXTRACT(YEAR FROM sub.created_date) AS report_year, -- Extract year for additional grouping
+    
+    
+			 -- Add count of submissions for form ID 3 where question_id 18 is 36
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 THEN sub.submission_id END) +
+			COUNT(DISTINCT CASE WHEN sub.form_id = 3 AND ans.question_id = 18 AND ans.question_option_id = 36 THEN sub.submission_id END) AS total_visits,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 THEN sub.submission_id END) AS total_consumption,
+			-- Age demographics
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND EXTRACT(YEAR FROM AGE(CAST(ans.answer_date AS DATE))) < 20 THEN 1 END) AS under_20,
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND EXTRACT(YEAR FROM AGE(CAST(ans.answer_date AS DATE))) BETWEEN 20 AND 29 THEN 1 END) AS age_20_29,
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND EXTRACT(YEAR FROM AGE(CAST(ans.answer_date AS DATE))) BETWEEN 30 AND 39 THEN 1 END) AS age_30_39,
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND EXTRACT(YEAR FROM AGE(CAST(ans.answer_date AS DATE))) BETWEEN 40 AND 49 THEN 1 END) AS age_40_49,
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND EXTRACT(YEAR FROM AGE(CAST(ans.answer_date AS DATE))) BETWEEN 50 AND 59 THEN 1  END) AS age_50_59,
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND EXTRACT(YEAR FROM AGE(CAST(ans.answer_date AS DATE))) >= 60 THEN 1  END) AS over_60,
+			COUNT(CASE  WHEN sub.form_id = 1 AND  ans.question_id = 2 AND (ans.answer_date IS NULL OR ans.answer_date IS NULL) THEN 1 END) AS age_unknown,
+			-- Client demographics based on question_option_id
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 3 AND ans.question_option_id = 1 THEN sub.submission_id END) AS Male_clients,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 3 AND ans.question_option_id = 2 THEN sub.submission_id END) AS Female_clients,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 3 AND ans.question_option_id = 3 THEN sub.submission_id END) AS Other_clients,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND ans.question_id = 4 AND ans.answer_boolean = TRUE  THEN sub.submission_id  END) AS new_clients,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND ans.question_id = 4 AND ans.answer_boolean = FALSE THEN sub.submission_id  END) AS unique_clients,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 4 THEN sub.submission_id END) AS cocaine_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 5 THEN sub.submission_id END) AS crack_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 6 THEN sub.submission_id END) AS methamphetamine_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 7 THEN sub.submission_id END) AS amphetamine_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 8 THEN sub.submission_id END) AS heroin_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 9 THEN sub.submission_id END) AS fentanyl_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 10 THEN sub.submission_id END) AS oxycontin_oxycodone_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 11 THEN sub.submission_id END) AS morphine_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 12 THEN sub.submission_id END) AS hydromorphone_dilaudid_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 13 THEN sub.submission_id END) AS unspecified_opioid_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 14 THEN sub.submission_id END) AS speedball_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 15 THEN sub.submission_id END) AS other_substances_usage,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 1 AND  ans.question_id = 6 AND ans.question_option_id = 16 THEN sub.submission_id END) AS unknown_not_specified_substance_usage,	
+			COUNT(DISTINCT CASE WHEN sub.form_id = 2 AND  ans.question_id = 10 AND ans.question_option_id = 17 THEN sub.submission_id END) AS non_fatal_overdoses, -- Count of non-fatal overdoses
+			COUNT(DISTINCT CASE WHEN sub.form_id = 2 AND  ans.question_id = 10 AND ans.question_option_id = 18 THEN sub.submission_id END) AS fatal_overdoses,    -- Count of fatal overdoses
+			COUNT(DISTINCT CASE WHEN sub.form_id = 2 AND  ans.question_id = 10 AND ans.question_option_id = 19 THEN sub.submission_id END) AS other_medical_emergencies,     -- Count of other medical emergencies
+			COUNT(DISTINCT CASE WHEN sub.form_id = 2 AND  ans.question_id = 10 AND ans.question_option_id =20 THEN sub.submission_id END) AS law_enforcement_calls,    -- Count of law enforcement calls
+			-- Count of incidents where naloxone was administered
+			COUNT(DISTINCT CASE WHEN sub.form_id = 2 AND  ans.question_id = 11 AND ans.answer_boolean = TRUE THEN sub.submission_id END) AS naloxone_administered,
+			-- Count of incidents where EMS was called
+			COUNT(DISTINCT CASE WHEN sub.form_id = 2 AND  ans.question_id = 12 AND ans.answer_boolean = TRUE THEN sub.submission_id END) AS ems_called,
+			COUNT(DISTINCT CASE WHEN sub.form_id = 3 THEN sub.submission_id END) AS total_referrals
+
+
+FROM
+    site_schema.submissions sub
+JOIN
+    site_schema.sc_sites s ON sub.site_id = s.site_id
+LEFT JOIN
+    site_schema.answers ans ON sub.submission_id = ans.submission_id
+WHERE
+     sub.form_id IN (1, 2, 3) AND
+     sub.created_date < DATE_TRUNC('month', CURRENT_DATE) -- Only include records up to the end of the previous month
+GROUP BY
+    s.site_id,
+    s.site_name,
+    s.city,
+    s.province,
+    s.site_type,
+    report_month,
+    report_year
+ORDER BY
+    report_month,
+    report_year,
+    s.site_id;
+
+
+
+CREATE INDEX idx_date ON site_schema.submissions(created_date);
+CREATE INDEX idx_question_id ON site_schema.answers(question_id);
+CREATE INDEX idx_site_id ON site_schema.submissions(site_id);
+CREATE INDEX idx_form_id ON site_schema.submissions(form_id);
+
+
+
+
+

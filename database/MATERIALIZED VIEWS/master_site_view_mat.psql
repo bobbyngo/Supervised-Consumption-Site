@@ -1,0 +1,7 @@
+
+CREATE MATERIALIZED VIEW site_schema.master_site_view_mat AS
+SELECT
+    *
+FROM
+    site_schema.master_site_view;
+	

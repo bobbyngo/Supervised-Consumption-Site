@@ -1,0 +1,387 @@
+{
+  "titleEn": "Client Intake Form",
+  "titleFr": "Formulaire d'Accueil du Client",
+  "introduction": {
+    "descriptionEn": "Form used for new or returning clients to intake their basic information and substance use details",
+    "descriptionFr": "Formulaire destiné aux nouveaux clients ou aux clients existants pour recueillir leurs informations de base et les détails de leur consommation de substances"
+  },
+  "privacyPolicy": {
+    "descriptionEn": "",
+    "descriptionFr": ""
+  },
+  "confirmation": {
+    "descriptionEn": "",
+    "descriptionFr": "",
+    "referrerUrlEn": "",
+    "referrerUrlFr": ""
+  },
+  "layout": [
+    4,
+    8,
+    5,
+    9,
+    1,
+    10,
+    7,
+    11,
+    12,
+    6,
+    13
+  ],
+  "groups": {},
+  "elements": [
+
+    {
+      "id": 4,
+      "type": "textField",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "What is your full name?",
+        "titleFr": "Quel est votre nom complet ?",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    {
+      "id": 8,
+      "type": "textField",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "What is your date of birth?",
+        "titleFr": "Quelle est votre date de naissance ?",
+        "validation": {
+          "required": true,
+          "type": "date"
+        },
+        "descriptionEn": "Format the date as: mm/dd/yyyy",
+        "descriptionFr": "Saisissez une date dans ce format : mm/jj/aaaa",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+
+    {
+      "id": 5,
+      "type": "dropdown",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Male",
+            "fr": "Homme"
+          },
+          {
+            "en": "Female",
+            "fr": "Femme"
+          },
+          {
+            "en": "Other",
+            "fr": "Autre"
+          }
+        ],
+        "titleEn": "What is your gender?",
+        "titleFr": "Quel est votre genre ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    {
+      "id": 9,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          {
+            "en": "No",
+            "fr": "Non"
+          }
+        ],
+        "titleEn": "Have you visited a facility like this before?",
+        "titleFr": "Avez-vous déjà visité un établissement comme celui-ci auparavant ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    {
+      "id": 1,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          {
+            "en": "No",
+            "fr": "Non"
+          }
+        ],
+        "titleEn": "Are you a new client of this facility?",
+        "titleFr": "Êtes-vous un nouveau client de cet établissement ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    {
+      "id": 10,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "More than Once a week",
+            "fr": "Plus d'une fois par semaine"
+          },
+          {
+            "en": "Once a Week",
+            "fr": "Une fois par semaine"
+          },
+          {
+            "en": "Once a Month",
+            "fr": "Une fois par mois"
+          },
+          {
+            "en": "More than Once a Month",
+            "fr": "Plus d'une fois par mois"
+          }
+        ],
+        "titleEn": "If No, how many times have you visited this facility in the past month",
+        "titleFr": "Si non, combien de fois avez-vous visité cet établissement le mois dernier ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+
+    {
+      "id": 7,
+      "type": "checkbox",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Cocaine",
+            "fr": "Caïne"
+          },
+          {
+            "en": "Crack ",
+            "fr": "Crack"
+          },
+          {
+            "en": "Methamphetamine",
+            "fr": " Méthamphétamine"
+          },
+          {
+            "en": "Amphetamine",
+            "fr": "Amphétamine"
+          },
+          {
+            "en": "Heroin",
+            "fr": "Héroïne"
+          },
+          {
+            "en": "Fentanyl",
+            "fr": "Fentanyl"
+          },
+          {
+            "en": "Oxycontin/oxycodone",
+            "fr": "Oxycontin/oxycodone"
+          },
+          {
+            "en": "Morphine",
+            "fr": "Morphine"
+          },
+          {
+            "en": "Hydromorphone/Dilaudid",
+            "fr": "Hydromorphone/Dilaudid"
+          },
+          {
+            "en": "Unspecified opioid",
+            "fr": "Opioïde non spécifié"
+          },
+          {
+            "en": "Other substances",
+            "fr": "Autres substances"
+          },
+          {
+            "en": "Unknown/not specified",
+            "fr": "Inconnu/non spécifié"
+          }
+        ],
+        "titleEn": "What is your substance of consumption for today’s visit?",
+        "titleFr": "Quelle est la substance que vous consommez pour la visite d'aujourd'hui ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    
+    {
+      "id": 11,
+      "type": "checkbox",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          {
+            "en": "Maybe",
+            "fr": "Peut-être"
+          },
+          {
+            "en": "No",
+            "fr": "Non"
+          }
+        ],
+        "titleEn": "Will you need any assistance or kit for today’s visit?",
+        "titleFr": "Aurez-vous besoin d'assistance ou d'un kit pour la visite d'aujourd'hui ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    {
+      "id": 12,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "1",
+            "fr": "1"
+          },
+          {
+            "en": "2",
+            "fr": "2"
+          },
+          {
+            "en": "3",
+            "fr": "3"
+          },
+          {
+            "en": "4",
+            "fr": "4"
+          },
+          {
+            "en": "5",
+            "fr": "5"
+          }
+        ],
+        "titleEn": "On a scale of 1-5, how safe do you feel when visiting our site?",
+        "titleFr": "Sur une échelle de 1 à 5, comment vous sentez-vous en sécurité lors de la visite de notre site ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+
+    {
+      "id": 6,
+      "type": "dropdown",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          {
+            "en": "No",
+            "fr": "Non"
+          }
+        ],
+        "titleEn": "Would you be interested in any of our referral services?",
+        "titleFr": "Seriez-vous intéressé par l'un de nos services de référence ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    },
+    
+    {
+      "id": 13,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": "Oui"
+          },
+          {
+            "en": "No",
+            "fr": "Non"
+          }
+        ],
+        "titleEn": "Are you currently employed?",
+        "titleFr": "Êtes-vous actuellement employé ?",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": ""
+      }
+    }
+  ]
+}

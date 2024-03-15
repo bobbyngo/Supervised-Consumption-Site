@@ -29,7 +29,7 @@ module.exports = function (app) {
      */
     app.put(
         '/api/user/:id/edit',
-        [verifyAuthToken, authMiddleware.isAdmin],
+        [verifyAuthToken, authMiddleware.isAdmin], 
         controller.updateUser
     );
 };

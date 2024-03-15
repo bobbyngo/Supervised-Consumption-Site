@@ -1,0 +1,208 @@
+{
+  "titleEn": "Referral Form",
+  "titleFr": "",
+  "introduction": {
+    "descriptionEn": "Form used to document referrals to internal and external services provided to the clients",
+    "descriptionFr": ""
+  },
+  "privacyPolicy": {
+    "descriptionEn": "",
+    "descriptionFr": ""
+  },
+  "confirmation": {
+    "descriptionEn": "",
+    "descriptionFr": "",
+    "referrerUrlEn": "",
+    "referrerUrlFr": ""
+  },
+  "layout": [
+    4,
+    8,
+    16,
+    9,
+    14,
+    17,
+    15
+  ],
+  "groups": {},
+  "elements": [
+    {
+      "id": 8,
+      "type": "textField",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Date",
+        "titleFr": "",
+        "validation": {
+          "required": true,
+          "type": "date"
+        },
+        "descriptionEn": "Format the date as: mm/dd/yyyy",
+        "descriptionFr": "Saisissez une date dans ce format : mm/jj/aaaa",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 16,
+      "type": "checkbox",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Services provided within the SCS",
+            "fr": ""
+          },
+          {
+            "en": "Onsite services outside SCS",
+            "fr": ""
+          },
+          {
+            "en": " Offsite services",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Type of service referred to",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 9,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          },
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Specific service or organization referred to",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 14,
+      "type": "textArea",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Reason for referral:",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 4,
+      "type": "textField",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Client Name:",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 17,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": ""
+          },
+          {
+            "en": "No",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Did the client accept the referral? ",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 15,
+      "type": "textArea",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Follow-up actions or comments:",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+
+CREATE TRIGGER after_site_change
+AFTER INSERT ON site_schema.sc_sites
+FOR EACH ROW
+EXECUTE FUNCTION site_schema.call_update_master_site_view();

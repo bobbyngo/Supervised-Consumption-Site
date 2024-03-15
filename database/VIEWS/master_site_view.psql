@@ -1,0 +1,5 @@
+--created when update_master_site_view function is ran
+
+SELECT site_schema.update_master_site_view();
+
+SELECT * FROM site_schema.master_site_view;

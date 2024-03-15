@@ -1,0 +1,10 @@
+--physically stores data
+CREATE MATERIALIZED VIEW site_schema.template_site_relevant_analysis_mat AS
+SELECT *
+FROM site_schema.template_site_relevant_analysis;
+
+CREATE INDEX template_site_relevant_analysis_mat_site_id_idx ON site_schema.template_site_relevant_analysis_mat (site_id);
+CREATE INDEX template_site_relevant_analysis_mat_month_year_idx ON site_schema.template_site_relevant_analysis_mat (report_month, report_year);
+
+
+--REFRESH MATERIALIZED VIEW site_schema.template_site_relevant_analysis_mat;

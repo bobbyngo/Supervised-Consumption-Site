@@ -7,6 +7,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         question_id: {
             type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'questions',
+                key: 'question_id'
+            }
         },
         determined_answer: {
             type: Sequelize.STRING,

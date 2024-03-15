@@ -1,0 +1,4 @@
+CREATE TRIGGER after_site_insert_or_update_1
+AFTER INSERT OR UPDATE ON sc_sites
+FOR EACH ROW
+EXECUTE FUNCTION site_schema.call_create_site_analysis_view();

@@ -10,11 +10,10 @@ module.exports = function (app) {
         );
         next();
     });
-
     /**
-     * Submiting a list of answer object to based on the form id
+     * Submits a list of answer objects for a specific submission (:sid)
      * @Method POST
-     * @endpoint http://localhost:4000/api/form/:sid/answers/submit
+     * @endpoint http://localhost:4000/api/submissions/:sid/answers/submit
      * 
      * Example
      * :sid is a form id, for example http://localhost:4000/api/form/1/answers/submit
@@ -42,13 +41,13 @@ module.exports = function (app) {
      * 
      */
     app.post(
-        '/api/form/:sid/answers/submit',
+        '/api/submissions/:sid/answers/submit',
         verifyAuthToken,
         controller.submitAnswers
     );
 
     /**
-     * Get a list of answers based on the form id
+     * Get a list of answers based on the submission id
      * @Method GET
      * @endpoint http://localhost:4000/api/form/:sid/answers
      * Example
@@ -56,13 +55,13 @@ module.exports = function (app) {
      *
      */
     app.get(
-        '/api/form/:sid/answers',
+        '/api/submissions/:sid/answers',
         [verifyAuthToken, authMiddleware.isSiteRole],
         controller.findAllAnswers
     );
 
     /**
-     * Update a specific answer giving the answer id
+     * Update a specific answer giving the answer aid
      * @Method PUT
      * @endpoint http://localhost:4000/api/form/answers/:id
      * Example
@@ -73,7 +72,7 @@ module.exports = function (app) {
         }
      */
     app.put(
-        '/api/form/answers/:id',
+        '/api/submissions/:sid/answer/:aid',
         [verifyAuthToken, authMiddleware.isSiteRole],
         controller.updateAnswer
     );

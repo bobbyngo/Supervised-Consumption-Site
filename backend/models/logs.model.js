@@ -5,8 +5,19 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        supervised_user_id: {
+        staff_id: {
             type: Sequelize.INTEGER,
+            references: {
+                model: 'staffs',
+                key: 'staff_id'
+            }, allowNull: true
+        },
+        site_id: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'sc_sites',
+                key: 'site_id'
+            }, allowNull: true
         },
         log_type: {
             type: Sequelize.STRING,

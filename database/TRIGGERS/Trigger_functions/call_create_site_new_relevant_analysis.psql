@@ -1,0 +1,8 @@
+CREATE OR REPLACE FUNCTION site_schema.call_create_site_analysis_view() RETURNS TRIGGER AS $$
+BEGIN
+    -- Call the function with NEW.site_id, which contains the site_id of the inserted/updated row
+    PERFORM site_schema.create_site_analysis_view(NEW.site_id);
+    RETURN NEW; -- Must return a row for AFTER triggers
+END;
+$$ LANGUAGE plpgsql;
+

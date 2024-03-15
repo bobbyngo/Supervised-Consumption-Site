@@ -1,0 +1,312 @@
+{
+  "titleEn": "Incident Report Form",
+  "titleFr": "",
+  "introduction": {
+    "descriptionEn": " Form used to report incidents that occur within the facility, including overdoses and other emergencies",
+    "descriptionFr": ""
+  },
+  "privacyPolicy": {
+    "descriptionEn": "",
+    "descriptionFr": ""
+  },
+  "confirmation": {
+    "descriptionEn": "",
+    "descriptionFr": "",
+    "referrerUrlEn": "",
+    "referrerUrlFr": ""
+  },
+  "layout": [
+    4,
+    8,
+    16,
+    9,
+    1,
+    14,
+    17,
+    7,
+    15
+  ],
+  "groups": {},
+  "elements": [
+    {
+      "id": 8,
+      "type": "textField",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Date and time of the incident",
+        "titleFr": "",
+        "validation": {
+          "required": true,
+          "type": "date"
+        },
+        "descriptionEn": "Format the date as: mm/dd/yyyy",
+        "descriptionFr": "Saisissez une date dans ce format : mm/jj/aaaa",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 7,
+      "type": "checkbox",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Cocaine",
+            "fr": ""
+          },
+          {
+            "en": "Crack ",
+            "fr": ""
+          },
+          {
+            "en": "Methamphetamine",
+            "fr": ""
+          },
+          {
+            "en": "Amphetamine",
+            "fr": ""
+          },
+          {
+            "en": "Heroin",
+            "fr": ""
+          },
+          {
+            "en": "Fentanyl",
+            "fr": ""
+          },
+          {
+            "en": "Oxycontin/oxycodone",
+            "fr": ""
+          },
+          {
+            "en": "Morphine",
+            "fr": ""
+          },
+          {
+            "en": "Hydromorphone/Dilaudid",
+            "fr": ""
+          },
+          {
+            "en": "Unspecified opioid",
+            "fr": ""
+          },
+          {
+            "en": "Other substances",
+            "fr": ""
+          },
+          {
+            "en": "Unknown/not specified",
+            "fr": ""
+          }
+        ],
+        "titleEn": "What drugs were consumed immediately before the incident?",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": [
+          {
+            "choiceId": "17.0"
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "type": "checkbox",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Non-fatal Overdose",
+            "fr": ""
+          },
+          {
+            "en": "Fatal Overdose",
+            "fr": ""
+          },
+          {
+            "en": "Other medical emergencies",
+            "fr": ""
+          },
+          {
+            "en": "Law enforcement calls",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Type of incident:",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 9,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": ""
+          },
+          {
+            "en": "No",
+            "fr": ""
+          }
+        ],
+        "titleEn": "If overdose, was naloxone administered?",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 14,
+      "type": "textArea",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Brief description of the incident:",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 4,
+      "type": "textField",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "What is your full name?",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 17,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": ""
+          },
+          {
+            "en": "No",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Were any drugs consumed immediately before the incident?",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 1,
+      "type": "radio",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "Yes",
+            "fr": ""
+          },
+          {
+            "en": "No",
+            "fr": ""
+          }
+        ],
+        "titleEn": "Were EMS services called?",
+        "titleFr": "",
+        "validation": {
+          "required": true
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    },
+    {
+      "id": 15,
+      "type": "textArea",
+      "properties": {
+        "subElements": [],
+        "choices": [
+          {
+            "en": "",
+            "fr": ""
+          }
+        ],
+        "titleEn": "General comments or observations:",
+        "titleFr": "",
+        "validation": {
+          "required": false
+        },
+        "descriptionEn": "",
+        "descriptionFr": "",
+        "placeholderEn": "",
+        "placeholderFr": "",
+        "conditionalRules": []
+      }
+    }
+  ]
+}

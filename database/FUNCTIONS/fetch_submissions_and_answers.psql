@@ -1,0 +1,50 @@
+--Verify the staff Row Level Acess to get data, then gets the submissions bewtween date range for the site_id
+CREATE OR REPLACE FUNCTION fetch_submissions_with_answers(
+    site_id_arg INT,
+	staff_id_arg INT,
+	start_date DATE DEFAULT NULL,
+    end_date DATE DEFAULT NULL
+) 
+RETURNS TABLE (
+    submission_id INT,
+    staff_id INT,
+    form_id INT,
+    site_id INT,
+    created_date DATE,
+    question_id INT,
+    question_text TEXT,
+    question_option_id INT,
+    determined_answer text,
+    answer_text TEXT,
+    answer_date DATE,
+    answer_boolean BOOLEAN
+) LANGUAGE 'plpgsql'
+AS $BODY$
+DECLARE
+    has_access BOOLEAN := FALSE;
+BEGIN
+    -- Verify if the staff has access to the site's data
+    SELECT EXISTS (
+        SELECT 1
+        FROM site_schema.staffs s
+        JOIN site_schema.roles r ON s.role_id = r.role_id
+        WHERE s.staff_id = staff_id_arg AND s.site_id = site_id_arg AND r.role_id IN (1, 4, 5) -- =roles 1, 4, 5 are admin and site_admin, site_collector
+    ) INTO has_access;
+
+    IF has_access THEN
+        RETURN QUERY
+        SELECT s.submission_id, s.staff_id, s.form_id, s.site_id, s.created_date,
+               q.question_id, q.question_text, 
+               qo.determined_answer, 
+               a.question_option_id, a.answer_text, a.answer_date, a.answer_boolean
+        FROM site_schema.submissions s
+        JOIN site_schema.answers a ON s.submission_id = a.submission_id
+        JOIN site_schema.questions q ON a.question_id = q.question_id 
+        LEFT JOIN site_schema.question_options qo ON a.question_option_id = qo.question_option_id
+        WHERE (start_date IS NULL OR s.created_date >= start_date) AND (end_date IS NULL OR s.created_date <= end_date)
+        AND s.site_id = site_id_arg;
+    ELSE
+        RAISE EXCEPTION 'Staff member % does not have access to site %', staff_id_arg, site_id_arg;
+    END IF;
+END;
+$BODY$ 

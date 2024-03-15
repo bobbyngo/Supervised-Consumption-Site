@@ -103,6 +103,66 @@ function isAdminInSameDepartmentToModify(userTargetRoleId, currentUserRoleId) {
     return Role[currentUserRoleId] === 'Administrator';
 }
 
+
+function canModifySubmission(req, res, next) {
+    if (isSiteRole(req) || isSuperAdmin(req)) {
+        return next();
+    } else {
+        return res.status(401).send({
+            message: 'Unauthorized to modify the submission',
+        });
+    }
+}
+
+function canViewSubmission(req, res, next) {
+    if (isSuperAdmin(req) || isSiteRole(req)) {
+        return next();
+    } else {
+        return res.status(401).send({
+            message: 'Unauthorized to view the submission',
+        });
+    }
+}
+function canSubmitForm(req, res, next) {
+    if (isSiteRole(req)) {
+        return next();
+    } else {
+        return res.status(401).send({ message: 'Unauthorized to submit data' });
+    }
+}
+
+function canManageSiteQuestions(req, res, next) {
+    if (isSuperAdmin(req) || isSiteAdmin(req)) {
+        return next();
+    } else {
+        return res.status(401).send({ message: 'Unauthorized to manage site questions' });
+    }
+}
+
+function canAccessSiteSpecificDashboard(req, res, next) {
+    if (isSiteAdmin(req)) {
+        return next();
+    } else {
+        return res.status(401).send({ message: 'Unauthorized to view site dashboard' });
+    }
+}
+
+function canManageHCFormsAndQuestions(req, res, next) {
+    if (isSuperAdmin(req) || isAdmin(req)) {
+        return next();
+    } else {
+        return res.status(401).send({ message: 'Unauthorized to manage HC questions/global forms' });
+    }
+}
+
+function canDeleteSubmission(req, res, next) {
+    // Logic to check if the user can delete a specific submission
+    if (isSuperAdmin(req) || isSiteAdmin(req)) {
+        return next();
+    } else {
+        return res.status(401).send({ message: 'Unauthorized to delete submission' });
+    }
+}
 const authMiddleware = {
     isSuperAdmin,
     isAdmin,
@@ -112,5 +172,13 @@ const authMiddleware = {
     isSiteAdmin,
     isAdminToModify,
     isAdminInSameDepartmentToModify,
+    canModifySubmission,
+    canViewSubmission,
+    canSubmitForm,
+    canManageSiteQuestions,
+    canAccessSiteSpecificDashboard,
+    canManageHCFormsAndQuestions,
+    canDeleteSubmission,
 };
 module.exports = authMiddleware;
+

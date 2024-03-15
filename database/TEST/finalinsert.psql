@@ -1,0 +1,255 @@
+-- standard inserts
+SET search_path TO site_schema;
+
+-- Insert roles
+INSERT INTO site_schema.roles (role_id, role_name, description) VALUES
+(1, 'Administrator', 'Responsible for managing the database'),
+(2, 'HC Admin', 'Responsible for managing forms'),
+(3, 'HC Viewer', 'Can View PowerBI Dashboards with Aggregated views'),
+(4, 'Site Admin', 'Responsible for managing the site and overseeing operations.'),
+(5, 'Data Collector', 'Responsible for collecting client data and managing form submissions.')
+/* (100, 'Datr', 'Responsible for collecting client data and managing form submissions.'),
+(200, 'Dallector', 'Responsible for collecting client data and managing form submissions.'),
+(300, 'Dator', 'Responsible for collecting client data and managing form submissions.'),
+(400, 'Data ', 'Responsible for collecting client data and managing form submissions.'),
+(500, 'Collector', 'Responsible for collecting client data and managing form submissions.'), */--for changing staff insert delete from roles where role_id>=100;
+;
+
+-- Insert sites
+INSERT INTO site_schema.sc_sites (site_id, site_name, address_line1, address_line2, postal_code, city, province, site_type) VALUES
+    (1, 'Downtown Health Center', '123 Main St', 'Suite 100', 'A1B 2C3', 'Metropolis', 'ON', 'Fixed'),
+    (2, 'Uptown Clinic', '456 Elm St', NULL, 'D4E 5F6', 'Gotham', 'BC', 'Mobile'),
+    (3, 'Greenfield Medical Center', '789 Oak St', 'Suite 200', 'G1H 3J5', 'Greenfield', 'QC', 'Fixed'),
+    (4, 'Valleyview Community Clinic', '1010 Maple Ave', 'Unit 50', 'V2X 9E9', 'Valleyview', 'BC', 'Fixed'),
+    (5, 'Sunset Wellness Hub', '456 Sunset Blvd', NULL, 'S4P 3Y2', 'Sunset City', 'SK', 'Fixed'),
+    (6, 'Rosewood Mobile Health Unit', '123 Rose St', NULL, 'R7M 5P1', 'Rosewood', 'MB', 'Mobile');
+
+
+-- Insert forms
+INSERT INTO site_schema.forms (form_id, form_name, description, site_id) VALUES
+(1, 'Client Intake', 'Form used for new or returning clients to intake their basic information and substance use details.', NULL),
+(2, 'Incident Report', 'Form used to report incidents that occur within the facility, including overdoses and other emergencies.', NULL),
+(3, 'Referral', 'Form used to document referrals to internal and external services provided to the clients.', NULL),
+(4, 'Feedback Survey', 'A form to collect feedback from clients based on the service provided.', 1);
+
+INSERT INTO site_schema.question_types (question_type_id, type_name) VALUES
+(1, 'Text'),
+(2, 'Date'),
+(3,'Dropdown'),
+(4,'Radio Button'),
+(5,'Checkbox'),
+(6,'Boolean');
+
+-- Insert questions for the Client Intake Form
+INSERT INTO site_schema.questions (question_id, form_id, question_text, question_type_id, is_mandatory)
+VALUES
+    -- Client Intake Form questions
+    (1, 1, 'What is your full name?', 1, TRUE),
+    (2, 1, 'What is your date of birth?', 2, TRUE),
+    (3, 1, 'What is your gender?', 3, TRUE),
+    (4, 1, 'Is this your first visit to our facility?', 6, TRUE),
+    (5, 1, 'How many times have you visited this facility in the past month?', 4, FALSE),
+    (6, 1, 'What substances are you consuming for today’s visit?', 5, TRUE),
+    (7, 1, 'Do you require any assistance or kits for today’s visit?', 6, TRUE),
+    (8, 1, 'How safe do you feel when visiting our site?', 1, TRUE),
+
+    -- Incident Report Form questions
+    (9,  2, 'Date and time of the incident:', 2, TRUE),
+    (10, 2, 'Type of incident:', 3, TRUE),
+    (11, 2, 'Was naloxone administered?', 6, TRUE),
+    (12, 2, 'Were EMS services called?', 6, TRUE),
+    (13, 2, 'Were any drugs consumed immediately before the incident?', 4, TRUE),
+    (14, 2, 'What drugs were consumed ?', 5, TRUE),
+    (15, 2, 'Brief description of the incident:', 1, FALSE),
+
+    -- Referral Form questions
+    (16, 3, 'Client Name:', 1, TRUE),
+    (17, 3, 'Date of referral:', 2, TRUE),
+    (18, 3, 'What was the primary purpose of visit today? ', 5, TRUE),
+    (19, 3, 'Type of service referred to:', 5, TRUE),
+    (20, 3, 'Specific service or organization referred to:', 5, FALSE),
+    (21, 3, 'Reason for referral:', 1, TRUE),
+
+    -- Feedback Survey questions
+    (22, 4, 'On a scale, how satisfied are you with the services provided?',1, TRUE),
+    (23, 4, 'What services did you use during your visit?', 5, TRUE),
+    (24, 4, 'Do you have any suggestions for how we can improve our services?', 1, FALSE);
+
+
+
+
+INSERT INTO site_schema.question_options (question_option_id, question_id, determined_answer) VALUES
+
+-- For "What is your gender?" question
+(1, 3, 'Male'),
+(2, 3, 'Female'),
+(3, 3, 'Other'),
+
+-- For "What is your substance of consumption use for today’s visit?" 
+(4, 6, 'Cocaine'),
+(5, 6, 'Crack'),
+(6, 6, 'Methamphetamine'),
+(7, 6, 'Amphetamine'),
+(8, 6, 'Heroin'),
+(9, 6, 'Fentanyl'),
+(10, 6, 'Oxycontin/oxycodone'),
+(11, 6, 'Morphine'),
+(12, 6, 'Hydromorphone/Dilaudid'),
+(13, 6, 'Unspecified opioid'),
+(14, 6, 'Speedball'),
+(15, 6, 'Other substances'),
+(16, 6, 'Unknown/not specified'),
+
+-- For "Type of incident:" question
+(17, 10, 'Non-fatal Overdose'),
+(18, 10, 'Fatal Overdose'),
+(19, 10, 'Other medical emergencies'),
+(20, 10, 'Law enforcement calls'),
+
+-- For "What drugs were consumed?" question
+(21, 14, 'Cocaine'),
+(22, 14, 'Crack'),
+(23, 14, 'Methamphetamine'),
+(24, 14, 'Amphetamine'),
+(25, 14, 'Heroin'),
+(26, 14, 'Fentanyl'),
+(27, 14, 'Oxycontin/oxycodone'),
+(28, 14, 'Morphine'),
+(29, 14, 'Hydromorphone/Dilaudid'),
+(30, 14, 'Unspecified opioid'),
+(31, 14, 'Speedball'),
+(32, 14, 'Other substances'),
+(33, 14, 'Unknown/not specified'),
+
+-- For 'What was the primary purpose of visit today?' question
+(34, 18,'Supervised drug consumption'),
+(35, 18,'Access to wrap-around services'),
+(36, 18,'Referral services only'),
+(37, 18,'Other'),
+
+-- For 'Type of service referred to:' question
+(38, 19, 'Addictions services'),
+(39, 19, 'Harm reduction services'),
+(40, 19, 'Clinical service providers - HIV Care'),
+(41, 19, 'Clinical service providers - Urgent Care'),
+(42, 19, 'Clinical service providers - Primary Care'),
+(43, 19, 'Clinical service providers - Other Care'),
+(44, 19, 'Mental health service providers'),
+(45, 19, 'HIV/STI testing'),
+(46, 19, 'Hep C teams'),
+(47, 19, 'Hep C testing other (non-Hep C team)'),
+(48, 19, 'Hep C treatment other (non-Hep C team)'),
+(49, 19, 'Community-based HIV service providers'),
+(50, 19, 'Other community-based service providers'),
+
+-- For 'Specific service or organization referred to:' question
+
+(51, 20, 'Indigenous Traditional Services'),
+(52, 20, 'Brief Counselling'),
+(53, 20, 'Harm Reduction Teaching'),
+(54, 20, 'Practical Support');
+
+
+INSERT INTO site_schema.staffs (staff_id, username, email, password_hash, role_id, site_id) VALUES   
+
+--HC Admin
+(1, 'Emily_Jones_role1_f3a436a3', 'Emily_Jones_role1_f3a436a3@example.com', 'db24f2eb4bbdbdc25cba9cd8d7be7a72', 2, NULL),
+(2, 'Michael_Williams_role1_29fc51c0', 'Michael_Williams_role1_29fc51c0@example.com', '32ae08219fa0e0b1d925ad137a932293', 2, NULL),
+
+---HC Viewer
+(3, 'David_Johnson_role1_cf1cb91f', 'David_Johnson_role1_cf1cb91f@example.com', 'e4227c0506efe4481283ecc8632382e5', 3, NULL),
+(4, 'Michael_Johnson_role1_802ddad1', 'Michael_Johnson_role1_802ddad1@example.com', '186b881c7e38ea67d7bdcedf24e37220', 3, NULL),
+
+ --Site Admins
+    (100, 'John_Johnson_role1_8f12cf1a', 'John_Johnson_role1_8f12cf1a@example.com', '997bf932941b57624fedb01f56d744bc', 4, 1),
+    (101, 'Michael_Smith_role1_3b6bce4f', 'Michael_Smith_role1_3b6bce4f@example.com', 'e6d69d73fee7fc8204483f1a60824133', 4, 2),
+    (102, 'David_Jones_role1_68f0bd4e', 'David_Jones_role1_68f0bd4e@example.com', 'cf03843d3fc496dc57291541dd456457', 4, 3),
+    (103, 'Sarah_Williams_role1_ec5fc87c', 'Sarah_Williams_role1_ec5fc87c@example.com', '508a101ef9320cd72be62a3bc1e6b86d', 4, 4),
+    (104, 'John_Garcia_role1_fca9c321', 'John_Garcia_role1_fca9c321@example.com', 'd1d7f9a290b0338007bd64df5d0842a5', 4, 5),
+    (105, 'Jane_Johnson_role1_e64653f2', 'Jane_Johnson_role1_e64653f2@example.com', 'cb1713cdd3a42d864fc718728f6ff61d', 4, 6),
+
+ --Site Data collectors
+    (1000, 'Emily_Jones_role1_b98b8126', 'Emily_Jones_role1_b98b8126@example.com', '6865ab97245dbf8d0b40d35571b2219b', 5, 1),
+    (1001, 'Michael_Johnson_role1_66c7f412', 'Michael_Johnson_role1_66c7f412@example.com', '5e6ddcf029b2180a0a18027161b980a9', 5, 1),
+    (1002, 'Michael_Jones_role1_c6c74a2f', 'Michael_Jones_role1_c6c74a2f@example.com', '7b7e43f4dfbe73ffd5f3961a60a47bc8', 5, 2),
+    (1003, 'John_Johnson_role1_c868afc0', 'John_Johnson_role1_c868afc0@example.com', '47f4f7fa2a684cbe0765440b49b6f62b', 5, 2),
+    (1004, 'Michael_Jones_role1_a2926982', 'Michael_Jones_role1_a2926982@example.com', '1847c84fc8716da6d51227f5f0626be1', 5, 3),
+    (1005, 'Sarah_Smith_role1_c09f69f8', 'Sarah_Smith_role1_c09f69f8@example.com', '60440a8f3012b943a042130082ef5d0f', 5, 3),
+    (1006, 'David_Brown_role1_c40fa326', 'David_Brown_role1_c40fa326@example.com', '7da6c8ede18254c8a7f11424ac11bac5', 5, 4),
+    (1007, 'Sarah_Williams_role1_31c1bd60', 'Sarah_Williams_role1_31c1bd60@example.com', 'edc20a4f6fdf0db49bfd5c7f83d6dd5d', 5, 4),
+    (1008, 'Jane_Garcia_role1_0b667bf5', 'Jane_Garcia_role1_0b667bf5@example.com', 'f226871d71a4df5410b55a3e82d4b2a5', 5, 5),
+    (1009, 'Jane_Brown_role1_2c8549d0', 'Jane_Brown_role1_2c8549d0@example.com', '0cc8ff7e0a5f5888031fa312ab40b664', 5, 5),
+    (1010, 'Sarah_Brown_role1_f138d025', 'Sarah_Brown_role1_f138d025@example.com', '23e34bb3ff2e262a98c5bcb4c203a177', 5, 6),
+    (1011, 'Michael_Brown_role1_f87bcbad', 'Michael_Brown_role1_f87bcbad@example.com', '7204213ce0bddb4e4f369f176020df72', 5, 6);
+
+
+
+INSERT INTO site_schema.submissions( submission_id, staff_id, form_id, site_id, created_date)VALUES 
+(1, 1000, 1, 1, '2024-01-01'),
+(2, 1000, 2, 1, '2024-01-02'),
+(3, 1000, 3, 1, '2024-01-03'),
+(4, 1000, 1, 1, '2024-01-01'),
+(5, 1000, 1, 1, '2024-01-01'),
+(6, 1001, 1, 1, '2024-01-04');
+
+INSERT INTO site_schema.answers( submission_id, question_id, question_option_id, answer_text, answer_date, answer_boolean)
+	VALUES 
+(1, 1, NULL, 'John Doe', NULL, NULL),
+(1, 2, NULL, NULL, '1990-01-01', NULL),
+(1, 3, 1, NULL, NULL, NULL),
+(1, 4, NULL, NULL, NULL, TRUE),
+(1, 5, NULL, '5', NULL, NULL),
+(1, 6, 4, NULL, NULL, NULL),
+(1, 7, NULL, NULL, NULL, FALSE),
+(1, 8, NULL, 'I feel very safe', NULL, NULL),
+
+
+(2, 9, NULL, NULL, '2024-01-02', NULL),
+(2, 10, 17, NULL, NULL, NULL),
+(2, 11, NULL, NULL, NULL, TRUE),
+(2, 12, NULL, NULL, NULL, TRUE),
+(2, 13, NULL, 'Yes', NULL, NULL),
+(2, 14, 8, NULL, NULL, NULL),
+(2, 15, NULL, 'Client experienced an overdose but was revived after naloxone administration.', NULL, NULL),
+
+
+(3, 16, NULL, 'Jane Doe', NULL, NULL),
+(3, 17, NULL, NULL, '2024-01-03', NULL),
+(3, 18, 36, NULL, NULL, NULL),
+(3, 19, 38, NULL, NULL, NULL),
+(3, 20, 51, NULL, NULL, NULL),
+(3, 21, NULL, 'Client needs further support with addiction recovery.', NULL, NULL),
+
+
+(4, 1, NULL, 'Elena Mendoza', NULL, NULL),  -- Full name
+(4, 2, NULL, NULL, '1988-05-20', NULL),      -- Date of birth
+(4, 3, 2, NULL, NULL, NULL),                 -- Gender (Female)
+(4, 4, NULL, NULL, NULL, FALSE),             -- First visit
+(4, 5, NULL, '12', NULL, NULL),              -- Number of past visits
+(4, 6, 5, NULL, NULL, NULL),                 -- Substance of consumption (Crack)
+(4, 7, NULL, NULL, NULL, TRUE),              -- Assistance required
+(4, 8, NULL, 'I do not feel safe', NULL, NULL),  -- Safety
+
+
+(5, 1, NULL, 'Michael Thompson', NULL, NULL),  -- Full name
+(5, 2, NULL, NULL, '1975-09-15', NULL),        -- Date of birth
+(5, 3, 1, NULL, NULL, NULL),                   -- Gender (Male)
+(5, 4, NULL, NULL, NULL, TRUE),                -- First visit
+(5, 5, NULL, '0', NULL, NULL),                 -- Number of past visits (first visit, so 0)
+(5, 6, 7, NULL, NULL, NULL),                   -- Substance of consumption (Amphetamine)
+(5, 7, NULL, NULL, NULL, FALSE),               -- No assistance required
+(5, 8, NULL, 'I feel somewhat safe', NULL, NULL),  -- Safety
+
+
+(6, 1, NULL, 'Lucas Graham', NULL, NULL),    -- Full name
+(6, 2, NULL, NULL, '1992-11-30', NULL),      -- Date of birth
+(6, 3, 1, NULL, NULL, NULL),                 -- Gender (Male)
+(6, 4, NULL, NULL, NULL, FALSE),             -- First visit
+(6, 5, NULL, '20', NULL, NULL),              -- Number of past visits
+(6, 6, 6, NULL, NULL, NULL),                 -- Substance of consumption (Methamphetamine)
+(6, 7, NULL, NULL, NULL, TRUE),              -- Assistance required
+(6, 8, NULL, 'I feel safe', NULL, NULL);     -- Safety
+
+
+
+

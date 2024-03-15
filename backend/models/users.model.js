@@ -21,6 +21,14 @@ module.exports = (sequelize, Sequelize) => {
         password_hash: {
             type: Sequelize.STRING,
         },
+        created_date: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+        },
+        updated_date: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW,
+        },
     });
     // Sync the tables in db, create if not exists or changed the schema
     // Uncommented the sync for all models when first run to create table
